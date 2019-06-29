@@ -22,3 +22,21 @@ VALUES ("Ray Bans Sunglasses","Accessories",130.00,50),
     ("Nikon D850","Cameras",2996.95,55),
     ("Baked Corn Puffs","Food",3.50,42),
     ("Bose Home Speaker","Speakers",399.00,142);
+
+CREATE TABLE Departments(
+	department_id MEDIUMINT AUTO_INCREMENT NOT NULL,
+    department_name VARCHAR(50) NOT NULL,
+    over_head_costs DECIMAL(10,2) NOT NULL,
+    product_sales DECIMAL(10,2) NOT NULL,
+    PRIMARY KEY(department_id));
+    
+INSERT INTO Departments (department_name, over_head_costs, product_sales)
+VALUES ('Accessories', 2500.00, 5000.00),
+	('Electronics', 11500.00, 50000.00),
+    ('Smartwatches', 5500.00, 9000.00),
+    ('Rings', 1500.00, 5000.00),
+    ('PC Gaming', 2500.00, 25000.00),
+    ('Fashion Sneakers', 2500.00, 10000.00),
+    ('Cameras', 2500.00, 17000.00),
+    ('Food', 500.00, 17500.00),
+    ('Speakers', 1100.00, 3000.00);
