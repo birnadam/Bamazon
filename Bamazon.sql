@@ -29,7 +29,8 @@ CREATE TABLE Departments(
     over_head_costs DECIMAL(10,2) NOT NULL,
     product_sales DECIMAL(10,2) NOT NULL,
     PRIMARY KEY(department_id));
-    
+
+select * from Departments;    
 INSERT INTO Departments (department_name, over_head_costs, product_sales)
 VALUES ('Accessories', 2500.00, 5000.00),
 	('Electronics', 11500.00, 50000.00),

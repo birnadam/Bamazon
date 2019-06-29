@@ -51,12 +51,12 @@ var run = function() {
             }
         ]).then(function(answer) {
             var chosenProduct;
+            var totalCost;
             for (var i = 0; i < results.length; i++) {
                 if (results[i].product_name === answer.product) {
                     chosenProduct = results[i];
                 }
             }
-
             if (chosenProduct.stock_quantity > parseInt(answer.amount)) {
                 connection.query("UPDATE products SET ? WHERE ?", [
                 {
@@ -66,7 +66,7 @@ var run = function() {
                     id: chosenProduct.id
                 }], function(error) {
                     if (error) throw err;
-                    console.log("\n\n");
+                    console.log("\n");
                     console.log("******************************");
                     console.log("*Product bought successfully!*");
                     console.log("******************************");
@@ -75,13 +75,34 @@ var run = function() {
                     console.log("Item: " +  chosenProduct.product_name);
                     console.log("Quantity: " + parseInt(answer.amount));
                     console.log("-----------------------------*");
-                    console.log("Total cost: " + "$" + (chosenProduct.price * parseInt(answer.amount)));
+                    totalCost = chosenProduct.price * parseInt(answer.amount);
+                    console.log("Total cost: " + "$" + totalCost);
                     console.log("******************************");
-                    console.log("\n\n");
+                    console.log("\n");
+                });
+
+                // query the database to select from departments table
+                connection.query("SELECT * FROM Departments", function(err, deptRes){
+                    if(err) throw err;
+                    var index;
+                    for(var i = 0; i < deptRes.length; i++){
+                        if(deptRes[i].department_name === chosenProduct.department_name){
+                            index = i;
+                        }
+                    }
                     
-                    // see whether or not the user wants to purchase something else
-                    rerun();
-                })
+                    // updates product sales 
+                    connection.query("UPDATE Departments SET ? WHERE ?", [
+                        {product_sales: deptRes[index].product_sales + totalCost},
+                        {department_name: chosenProduct.department_name}
+                    ], function(err){
+                        if(err) throw err;
+                        console.log("Department Sales Updated.");
+
+                        // see whether or not the user wants to purchase something else
+                        rerun();
+                    })
+                })      
             } else {
                 console.log("******************************");
                 console.log("*   Insufficient quantity!   *");
@@ -102,7 +123,7 @@ var rerun = function() {
             name: "continue",
             type: "confirm",
             default: true,
-            message: "Would you like to buy more?"
+            message: "\n Would you like to buy more?\n"
         }
     ]).then(function(answer) {
 
