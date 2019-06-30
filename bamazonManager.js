@@ -1,6 +1,7 @@
 // packages needed
 var mysql = require("mysql");
 var inquirer = require("inquirer");
+var cTable = require('console.table');
 
 // connecting with MySQL
 var connection = mysql.createConnection({
@@ -63,7 +64,7 @@ function addToInventory(){
     console.log("*     Adding to Inventory    *");
     console.log("******************************");
   
-    connection.query('SELECT * FROM Products', function(err, res){
+    connection.query('SELECT * FROM products', function(err, res){
         if(err) throw err;
         var itemArray = [];
         // pushes each item into an itemArray
@@ -91,7 +92,7 @@ function addToInventory(){
                     currentQty = res[i].stock_quantity;
                 }
             }
-            connection.query('UPDATE Products SET ? WHERE ?', [
+            connection.query('UPDATE products SET ? WHERE ?', [
                 {stock_quantity: currentQty + parseInt(ans.qty)},
                 {product_name: ans.product}
             ], function(err){
@@ -142,7 +143,7 @@ function addNewProduct(){
             else{return false;}
         }
     }]).then(function(ans){
-        connection.query('INSERT INTO Products SET ?',{
+        connection.query('INSERT INTO products SET ?',{
             product_name: ans.product,
             department_name: ans.department,
             price: ans.price,

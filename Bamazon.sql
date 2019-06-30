@@ -10,7 +10,7 @@ CREATE TABLE products (
     PRIMARY KEY (id)
     );
     
-select * from Products;
+select * from products;
 INSERT INTO Products(product_name, department_name, price, stock_quantity)
 VALUES ("Ray Bans Sunglasses","Accessories",130.00,50),
 	("Toshiba LED TV","Electronics",179.99,25),
@@ -23,15 +23,15 @@ VALUES ("Ray Bans Sunglasses","Accessories",130.00,50),
     ("Baked Corn Puffs","Food",3.50,42),
     ("Bose Home Speaker","Speakers",399.00,142);
 
-CREATE TABLE Departments(
+CREATE TABLE departments(
 	department_id MEDIUMINT AUTO_INCREMENT NOT NULL,
     department_name VARCHAR(50) NOT NULL,
     over_head_costs DECIMAL(10,2) NOT NULL,
     product_sales DECIMAL(10,2) NOT NULL,
     PRIMARY KEY(department_id));
 
-select * from Departments;    
-INSERT INTO Departments (department_name, over_head_costs, product_sales)
+select * from departments;    
+INSERT INTO departments (department_name, over_head_costs, product_sales)
 VALUES ('Accessories', 2500.00, 5000.00),
 	('Electronics', 11500.00, 50000.00),
     ('Smartwatches', 5500.00, 9000.00),

@@ -1,6 +1,7 @@
 // packages to use
 var mysql = require("mysql");
 var inquirer = require("inquirer");
+var cTable = require('console.table');
 
 // connecting with MySQL
 var connection = mysql.createConnection({
@@ -98,7 +99,8 @@ var run = function() {
                     ], function(err){
                         if(err) throw err;
                         console.log("Department Sales Updated.");
-
+                        console.log("\n");
+                        
                         // see whether or not the user wants to purchase something else
                         rerun();
                     })
@@ -123,7 +125,7 @@ var rerun = function() {
             name: "continue",
             type: "confirm",
             default: true,
-            message: "\n Would you like to buy more?\n"
+            message: "Would you like to buy more?"
         }
     ]).then(function(answer) {
 
@@ -135,7 +137,7 @@ var rerun = function() {
         // stop otherwise
         } else {
             console.log("******************************");
-            console.log("*      Purchasing ended!     *");
+            console.log("* Purchasing ended. Good Bye!*");
             console.log("******************************");
         }
     })
